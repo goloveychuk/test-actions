@@ -24,11 +24,11 @@ jobs:
         run: |
           img='my.img'
           dd if=/dev/zero of="$img" bs=4096 seek=2621440 count=0
-          sudo losetup -f $img
+          sudo losetup /dev/loop38 $img
           mkfs.ext4 $img
-          mkdir /home/ubuntu/work/thunderbolt-loopback
-          sudo chown -R ubuntu:ubuntu /home/ubuntu/work/thunderbolt-loopback
-          mount -o loop /dev/loop8 /home/ubuntu/work/thunderbolt-loopback
+          mkdir loopback
+          chown -R ubuntu:ubuntu loopback
+          mount -o loop /dev/loop38 loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
