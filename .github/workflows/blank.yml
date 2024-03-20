@@ -16,12 +16,24 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: loopback
+        run: |
+          img='my.img'
+          dd if=/dev/zero of="$img" bs=4096 seek=2621440 count=0
+          sudo losetup -f $img
+          mkfs.ext4 $img
+          mkdir /home/ubuntu/work/thunderbolt-loopback
+          sudo chown -R ubuntu:ubuntu /home/ubuntu/work/thunderbolt-loopback
+          mount -o loop /dev/loop8 /home/ubuntu/work/thunderbolt-loopback
+          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          path: loopback
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
