@@ -29,6 +29,7 @@ jobs:
           mkfs.ext4 $img
           mkdir loopback
           sudo mount -o loop $loopDev loopback
+          sudo chown -R $(id -u):$(id -g) loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
