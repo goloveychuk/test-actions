@@ -29,13 +29,10 @@ jobs:
           echo $loopDev
           sudo zpool create new-pool $loopDev
           sudo zpool status
-          zfs create -V 7gb new-pool/vol
-          
-      # - name: loopback
-      #   run: |
-          # mkfs.ext4 $img
-          # mkdir loopback
-          # sudo mount -o loop $loopDev loopback
+          sudo zfs create -V 7gb -o compression=lz4 new-pool/vol
+          sudo mkfs.ext4 /dev/zvol/new-pool/vol
+          mkdir loopback
+          sudo mount /dev/zvol/new-pool/vol loopback
           # sudo chown -R $(id -u):$(id -g) loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
