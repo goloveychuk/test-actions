@@ -30,7 +30,7 @@ jobs:
           sudo zpool create new-pool $loopDev
           sudo zpool status
           sudo zfs create new-pool/vol
-          zfs set mountpoint=/mnt loopback
+          sudo zfs set mountpoint=$(cwd)/loopback new-pool/vol
           zfs list
           # sudo ls /dev/
           # sudo ls /dev/zvol
