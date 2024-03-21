@@ -20,6 +20,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: zfs
+        run: |
+          sudo zpool create new-pool /dev/sdb 
       - name: loopback
         run: |
           img='my.img'
