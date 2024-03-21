@@ -29,7 +29,7 @@ jobs:
           echo $loopDev
           sudo zpool create new-pool $loopDev
           sudo zpool status
-          sudo zfs create -V 7gb -o compression=lz4 new-pool/vol
+          sudo zfs create -V 2gb new-pool/vol
           zfs list
           ls /dev/zvol/new-pool
           sudo mkfs.ext4 /dev/zvol/new-pool/vol
