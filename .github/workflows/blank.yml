@@ -23,17 +23,17 @@ jobs:
       - name: zfs
         run: |
           sudo apt install zfsutils-linux
-          sudo zpool create new-pool /dev/sdb 
-      - name: loopback
-        run: |
           img='my.img'
           dd if=/dev/zero of="$img" bs=4096 seek=2621440 count=0
           loopDev=$(sudo losetup --find --show $img)
           echo $loopDev
-          mkfs.ext4 $img
-          mkdir loopback
-          sudo mount -o loop $loopDev loopback
-          sudo chown -R $(id -u):$(id -g) loopback
+          sudo zpool create new-pool $loopDev
+      # - name: loopback
+      #   run: |
+          # mkfs.ext4 $img
+          # mkdir loopback
+          # sudo mount -o loop $loopDev loopback
+          # sudo chown -R $(id -u):$(id -g) loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
