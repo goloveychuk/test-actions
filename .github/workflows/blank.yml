@@ -22,6 +22,7 @@ jobs:
     steps:
       - name: zfs
         run: |
+          sudo apt install zfsutils-linux
           sudo zpool create new-pool /dev/sdb 
       - name: loopback
         run: |
