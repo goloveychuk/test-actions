@@ -30,6 +30,7 @@ jobs:
           sudo zpool create new-pool $loopDev
           sudo zpool status
           sudo zfs create new-pool/vol
+          zfs set mountpoint=/mnt loopback
           zfs list
           # sudo ls /dev/
           # sudo ls /dev/zvol
@@ -37,12 +38,12 @@ jobs:
           # sudo mkfs.ext4 /dev/zvol/new-pool/vol
           # mkdir loopback
           # sudo mount /dev/zvol/new-pool/vol loopback
-          sudo chown -R $(id -u):$(id -g) /new-pool/vol
+          sudo chown -R $(id -u):$(id -g) loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         with:
-          path: /new-pool/vol
+          path: loopback
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
