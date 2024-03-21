@@ -31,7 +31,9 @@ jobs:
           sudo zpool status
           sudo zfs create -V 2gb new-pool/vol
           zfs list
-          ls /dev/zvol/new-pool
+          sudo ls /dev/
+          sudo ls /dev/zvol
+          sudo ls /dev/zvol/new-pool
           sudo mkfs.ext4 /dev/zvol/new-pool/vol
           mkdir loopback
           sudo mount /dev/zvol/new-pool/vol loopback
