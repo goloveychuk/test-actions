@@ -29,7 +29,7 @@ jobs:
           echo $loopDev
           sudo zpool create new-pool $loopDev
           sudo zpool status
-          sudo zfs create 2gb new-pool/vol
+          sudo zfs create new-pool/vol
           zfs list
           # sudo ls /dev/
           # sudo ls /dev/zvol
