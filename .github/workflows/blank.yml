@@ -28,6 +28,9 @@ jobs:
           loopDev=$(sudo losetup --find --show $img)
           echo $loopDev
           sudo zpool create new-pool $loopDev
+          sudo zpool status
+          zfs create -V 7gb new-pool/vol
+          
       # - name: loopback
       #   run: |
           # mkfs.ext4 $img
