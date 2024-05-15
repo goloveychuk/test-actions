@@ -20,15 +20,24 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: loopback
+      - name: zfs
         run: |
+          sudo apt install zfsutils-linux
           img='my.img'
           dd if=/dev/zero of="$img" bs=4096 seek=2621440 count=0
           loopDev=$(sudo losetup --find --show $img)
           echo $loopDev
-          mkfs.ext4 $img
-          mkdir loopback
-          sudo mount -o loop $loopDev loopback
+          sudo zpool create new-pool $loopDev
+          sudo zpool status
+          sudo zfs create new-pool/vol
+          sudo zfs set mountpoint=$PWD/loopback new-pool/vol
+          zfs list
+          # sudo ls /dev/
+          # sudo ls /dev/zvol
+          # sudo ls /dev/zvol/new-pool
+          # sudo mkfs.ext4 /dev/zvol/new-pool/vol
+          # mkdir loopback
+          # sudo mount /dev/zvol/new-pool/vol loopback
           sudo chown -R $(id -u):$(id -g) loopback
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
